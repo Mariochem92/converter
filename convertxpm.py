@@ -9,11 +9,12 @@ from itertools import islice
 import math
 
 def main():
+    filename='file.xpm'
     my_dict = {}
     counter=0
     index=0
     r=0
-    with open('meancmap.xpm') as f:
+    with open(filename) as f:
         for line in f:
             if line[0]=='"':
                 counter=counter+1
@@ -60,28 +61,5 @@ def main():
     for i in res1t:
         plt.gca().get_xticklabels()[i].set_color("dimgray")
         plt.gca().get_yticklabels()[i+13].set_color("dimgray")
-    plt.title('Smallest distance between residue pairs',fontsize=25)
-    #set up colorbar
-    #customize ticks and labels
-    fig=plt.figure(figsize=(14,10))
-    x = np.arange(26)
-    y = np.arange(26)
-    X, Y = np.meshgrid(x, y)
-    dim=A[::-1]
-    c=dim
-    #it is possible to define a dimension for each marker
-    im2=plt.scatter(X,Y,s=dim*150, marker=',',c=c,cmap=plt.cm.jet_r)
-    cbar = plt.colorbar(im2)
-    cbar.set_label('Distance [nm]',fontsize=20)
-    cbar.ax.tick_params(labelsize=20)
-    plt.xticks(np.arange(26),ticks,rotation=90,fontsize=15) 
-    plt.yticks(np.arange(26),ticks,fontsize=15)
-    for j in res1t:
-        plt.gca().get_xticklabels()[j].set_color("dimgray")
-        plt.gca().get_yticklabels()[j].set_color("dimgray")
-    plt.title('Mean Smallest distance between residue pairs',fontsize=25)
-    fig.savefig('polished', bbox_inches='tight',format='svg', dpi=1200)
-
-
     plt.show() 
 main()
